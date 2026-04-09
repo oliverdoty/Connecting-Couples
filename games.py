@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib as plt
+import random
 
 def twentyquestions():
     return
@@ -11,7 +12,7 @@ def custom_wordle():
     Returns T or F corresponding to a win or loss'''
 
     secret = list(input('What is the key word? ').lower()) # all lowercase for consistency
-    while:
+    while True:
         if ''.join(secret).isalpha() == False: # no length restricitons on secret word
             secret = list(input('Please enter a key word consisting of only characters in the alphabet: ').lower())
         else:
@@ -19,7 +20,7 @@ def custom_wordle():
     green_letters = 0
     for i in range(6):
         guess = list(input('What is your guess? ').lower())
-        while:
+        while True:
             if len(guess) != len(secret) or ''.join(guess).isalpha() == False:
                 guess = list(input(f'Input a guess with {len(secret)} letters: '))
             else:
@@ -37,16 +38,25 @@ def custom_wordle():
         print(''.join(guess))
     return False
 
-def tanks():
-    theta = input('What angle would you like to launch shoot at? (0 - 90) ')
-    while:
+def valid_input(inp,up_lim,low_lim=0):
+    while True:
         try:
-            if (0 <= int(theta) <= 90) == False:
-                theta = input('Please input a digit 0 - 90: ')
+            if (low_lim <= int(inp) <= up_lim):
+                return inp # valid
         except:
-            theta = input('Please input a digit 0 - 90: ')
+            pass
+        inp = input(f'Please input a digit {low_lim} - {up_lim}: ')
 
-    power = input('What power would you like to shoot at? (1-100) ')
+
+def tanks():
+    loc = input('Where would you like to place your tank? (0-20) ')
+    loc = valid_input(loc,20)
+    for i in range(5):
+        theta = input('What angle would you like to launch shoot at? (0 - 90) ')
+        theta = valid_input(theta,90)
+        power = input('What power would you like to shoot at? (1-100) ')
+        power = valid_input(power,100)
+        
     return
 
 tanks()
