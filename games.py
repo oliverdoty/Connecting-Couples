@@ -23,6 +23,7 @@ def custom_wordle():
                         guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
                     if j == k:
                         guess[k] = '\033[32m' + guess[k][5] + '\033[0m' # makes green
+        if 
         print(''.join(guess))
 
 def tanks():
