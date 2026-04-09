@@ -19,7 +19,8 @@ def custom_wordle():
         for j in range(len(secret)):
             for k in range(len(guess)):
                 if guess[k] == secret[j]:
-                    guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
+                    if '033' not in guess[k]:
+                        guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
                     if j == k:
                         guess[k] = '\033[32m' + guess[k] + '\033[0m' # makes green
                         continue
