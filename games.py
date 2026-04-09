@@ -17,15 +17,12 @@ def custom_wordle():
             else:
                 break
         for j in range(secret):
-            for k in range(secret):
-                if guess[j] == secret[k]:
-                    guess[j] = '\033[33m' + guess[j] + '\033[0m' # makes yellow
+            for k in range(guess):
+                if guess[k] == secret[j]:
+                    guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
                     if j == k:
-                        \033[32m green \033[0m
-                        pass #green
-
-                        # ....
-    return
+                        guess[k] = '\033[32m', guess[k], + '\033[0m' # makes green
+        print()
 
 def tanks():
     return
