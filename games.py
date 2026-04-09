@@ -56,7 +56,7 @@ def tanks():
         theta = valid_input(theta,90)
         power = input('What power would you like to shoot at? (1-100) ')
         power = valid_input(power,100)
-        
+        target = 
     return
 
 tanks()
