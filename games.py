@@ -47,7 +47,6 @@ def valid_input(inp,up_lim,low_lim=0):
             pass
         inp = input(f'Please input a digit {low_lim} - {up_lim}: ')
 
-
 def tanks():
     loc = input('Where would you like to place your tank? (0-20) ')
     loc = valid_input(loc,20)
@@ -56,7 +55,8 @@ def tanks():
         theta = valid_input(theta,90)
         power = input('What power would you like to shoot at? (1-100) ')
         power = valid_input(power,100)
-        target = 
+        target = 100 # example
+
     return
 
 tanks()
