@@ -55,8 +55,9 @@ def tanks():
         theta = valid_input(theta,90)
         power = input('What power would you like to shoot at? (1-100) ')
         power = valid_input(power,100)
-        target = 100 # example
-
+        target = 255 # example
+        if (target + 2) <= (power**2*np.sin(2*np.deg2rad(theta))/9.8) <= (target + 5):
+            pass # hit
     return
 
 tanks()
