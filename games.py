@@ -22,7 +22,7 @@ def custom_wordle():
                     if '033' not in guess[k]:
                         guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
                     if j == k:
-                        guess[k] = '\033[32m' + guess[k] + '\033[0m' # makes green
+                        guess[k] = '\033[32m' + guess[k][5] + '\033[0m' # makes green
         print(''.join(guess))
 
 def tanks():
