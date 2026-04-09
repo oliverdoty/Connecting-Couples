@@ -16,11 +16,12 @@ def custom_wordle():
                 guess = input(f'Input a guess with {length} letters: ')
             else:
                 break
-        for j in range(guess):
+        for j in range(secret):
             for k in range(secret):
                 if guess[j] == secret[k]:
-                    guess[j] = guess[j]
+                    guess[j] = '\033[33m' + guess[j] + '\033[0m' # makes yellow
                     if j == k:
+                        \033[32m green \033[0m
                         pass #green
 
                         # ....
