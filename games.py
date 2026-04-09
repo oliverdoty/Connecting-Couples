@@ -40,7 +40,11 @@ def custom_wordle():
 def tanks():
     theta = input('What angle would you like to launch shoot at? (0 - 90) ')
     while:
-        if theta.isdigit() == False or 
+        try:
+            if (0 <= int(theta) <= 90) == False:
+                theta = input('Please input a digit 0 - 90: ')
+        except:
+            theta = input('Please input a digit 0 - 90: ')
 
     power = input('What power would you like to shoot at? (1-100) ')
     return
