@@ -63,4 +63,5 @@ def tanks():
             print('miss')
     return
 
-tanks()
+custom_wordle()
+#tanks()
