@@ -17,7 +17,6 @@ def custom_wordle():
             secret = list(input('Please enter a key word consisting of only characters in the alphabet: ').lower())
         else:
             break
-    green_letters = 0
     for i in range(6):
         guess = list(input('What is your guess? ').lower())
         while True:
@@ -25,6 +24,7 @@ def custom_wordle():
                 guess = list(input(f'Input a guess with {len(secret)} letters: '))
             else:
                 break
+        green_letters = 0
         for j in range(len(secret)):
             for k in range(len(guess)):
                 if guess[k] == secret[j]:
