@@ -33,9 +33,9 @@ def custom_wordle():
                     if j == k:
                         guess[k] = '\033[32m' + guess[k][5] + '\033[0m' # makes green
                         green_letters += 1
+        print(''.join(guess))
         if green_letters == len(secret):
             return True
-        print(''.join(guess))
     return False
 
 def valid_input(inp,up_lim,low_lim=0):
