@@ -19,7 +19,7 @@ def custom_wordle():
         for j in range(guess):
             for k in range(secret):
                 if guess[j] == secret[k]:
-                    guess[j] = k
+                    guess[j] = guess[j]
                     if j == k:
                         pass #green
 
