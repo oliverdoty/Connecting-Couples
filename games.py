@@ -5,7 +5,6 @@ from socket32 import create_new_socket
 import nltk
 nltk.download('words')
 from nltk.corpus import words
-word_list = words.words()
 
 def twentyquestions():
     return
@@ -57,10 +56,11 @@ def custom_wordle_client_s():
         s.connect(HOST, PORT)
 
         # game
+        word_list = words.words()
         secret = list(input('What is the key word? ').lower()) # all lowercase for consistency
         while True:
-            if ''.join(secret).isalpha() == False: # no length restricitons on secret word
-                secret = list(input('Please enter a key word consisting of only characters in the alphabet: ').lower())
+            if ''.join(secret).isalpha() == False or secret not in word_list: 
+                secret = list(input('Please enter a real word consisting of only characters in the alphabet: ').lower())
             else:
                 break
         s.sendall(secret)
