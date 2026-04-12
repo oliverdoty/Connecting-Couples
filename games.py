@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib as plt
 import random
+from socket32 import create_new_socket
+
 
 def twentyquestions():
     return
@@ -42,8 +44,7 @@ def custom_wordle_server():
     return
 
 def custom_wordle_client_s():
-    from socket32 import create_new_socket
-
+    
     HOST = '127.0.0.1'  # The server's hostname or IP address (self)
     PORT = 65432        # The port used by the server
 
