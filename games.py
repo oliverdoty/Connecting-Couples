@@ -47,26 +47,25 @@ def custom_wordle_client_d():
     HOST = '127.0.0.1'  # The server's hostname or IP address (self)
     PORT = 65432        # The port used by the server
 
-    def main():
-        print('## Welcome to ROSHAMBO! ##')
-        shapes = ['rock','paper','scissors']
+    print('## Welcome to wordle! ##')
+    shapes = ['rock','paper','scissors']
 
-        with create_new_socket() as s:
-            s.connect(HOST, PORT)
+    with create_new_socket() as s:
+        s.connect(HOST, PORT)
 
-            while True:   # our game loop
-                # Grab a guess from the player
-                while True:
-                    guess = input('Please pick your shape: ')
-                    if guess in shapes:
-                        break
-                    else:
-                        print('Try again. Possible inputs are "rock", "paper", or "scissors".')
+        while True:   # our game loop
+            # Grab a guess from the player
+            while True:
+                guess = input('Please pick your shape: ')
+                if guess in shapes:
+                    break
+                else:
+                    print('Try again. Possible inputs are "rock", "paper", or "scissors".')
 
-                s.sendall(guess)
-                response = s.recv()
-                print(response)
-                break
+            s.sendall(guess)
+            response = s.recv()
+            print(response)
+            break
 
 def custom_wordle_client_s():
     return
