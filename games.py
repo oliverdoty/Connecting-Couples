@@ -41,7 +41,7 @@ def custom_wordle():
 def custom_wordle_server():
     return
 
-def custom_wordle_client_d():
+def custom_wordle_client_s():
     from socket32 import create_new_socket
 
     HOST = '127.0.0.1'  # The server's hostname or IP address (self)
@@ -63,7 +63,7 @@ def custom_wordle_client_d():
         answer = s.recv()
         print(answer)
 
-def custom_wordle_client_s():
+def custom_wordle_client_d():
     return
 
 def valid_input(inp,up_lim,low_lim=0):
