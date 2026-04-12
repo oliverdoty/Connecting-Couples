@@ -41,7 +41,10 @@ def custom_wordle():
 def custom_wordle_server():
     return
 
-def custom_wordle_client():
+def custom_wordle_client_d():
+    return
+
+def custom_wordle_client_s():
     return
 
 def valid_input(inp,up_lim,low_lim=0):
