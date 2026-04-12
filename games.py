@@ -53,21 +53,15 @@ def custom_wordle_client_d():
         s.connect(HOST, PORT)
 
         # game
-        
-
-        while True:   # our game loop
-            # Grab a guess from the player
-            while True:
-                guess = input('Please pick your shape: ')
-                if guess in shapes:
-                    break
-                else:
-                    print('Try again. Possible inputs are "rock", "paper", or "scissors".')
-
-            s.sendall(guess)
-            response = s.recv()
-            print(response)
-            break
+        secret = list(input('What is the key word? ').lower()) # all lowercase for consistency
+        while True:
+            if ''.join(secret).isalpha() == False: # no length restricitons on secret word
+                secret = list(input('Please enter a key word consisting of only characters in the alphabet: ').lower())
+            else:
+                break
+        s.sendall(secret)
+        answer = s.recv()
+        print(answer)
 
 def custom_wordle_client_s():
     return
