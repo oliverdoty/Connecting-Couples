@@ -7,7 +7,6 @@ nltk.download('words')
 from nltk.corpus import words
 word_list = words.words()
 
-
 def twentyquestions():
     return
 
@@ -97,4 +96,4 @@ def tanks():
     return
 
 #custom_wordle()
-tanks()
+#tanks()
