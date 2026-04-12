@@ -67,6 +67,16 @@ def custom_wordle_client_s():
         print(answer)
 
 def custom_wordle_client_d():
+
+    HOST = '127.0.0.1'  # The server's hostname or IP address (self)
+    PORT = 65432        # The port used by the server
+
+    print('## Welcome to wordle! ##')
+
+    with create_new_socket() as s:
+        s.connect(HOST, PORT)
+        # game
+        
     return
 
 def valid_input(inp,up_lim,low_lim=0):
