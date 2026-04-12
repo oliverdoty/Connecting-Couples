@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib as plt
 import random
 from socket32 import create_new_socket
-pip install nltk
 import nltk
 nltk.download('words')
 from nltk.corpus import words
