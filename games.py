@@ -2,6 +2,10 @@ import numpy as np
 import matplotlib as plt
 import random
 from socket32 import create_new_socket
+import nltk
+nltk.download('words')
+from nltk.corpus import words
+word_list = words.words()
 
 
 def twentyquestions():
@@ -44,7 +48,7 @@ def custom_wordle_server():
     return
 
 def custom_wordle_client_s():
-    
+
     HOST = '127.0.0.1'  # The server's hostname or IP address (self)
     PORT = 65432        # The port used by the server
 
