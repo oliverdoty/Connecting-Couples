@@ -38,6 +38,12 @@ def custom_wordle():
             return True
     return False
 
+def custom_wordle_server():
+    return
+
+def custom_wordle_client():
+    return
+
 def valid_input(inp,up_lim,low_lim=0):
     while True:
         try:
