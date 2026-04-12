@@ -52,6 +52,9 @@ def custom_wordle_client_d():
     with create_new_socket() as s:
         s.connect(HOST, PORT)
 
+        # game
+        
+
         while True:   # our game loop
             # Grab a guess from the player
             while True:
