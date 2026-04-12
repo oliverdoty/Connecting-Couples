@@ -48,7 +48,6 @@ def custom_wordle_client_d():
     PORT = 65432        # The port used by the server
 
     print('## Welcome to wordle! ##')
-    shapes = ['rock','paper','scissors']
 
     with create_new_socket() as s:
         s.connect(HOST, PORT)
