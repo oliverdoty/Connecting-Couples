@@ -64,7 +64,7 @@ def custom_wordle_server():
         print('Connected by', addr)
 
         with conn2client:
-            
+
 
 
     return
@@ -100,7 +100,26 @@ def custom_wordle_client_d():
     with create_new_socket() as s:
         s.connect(HOST, PORT)
         # game
-
+        for i in range(6):
+            guess = list(input('What is your guess? ').lower())
+            while True:
+                if len(guess) != len(secret) or ''.join(guess).isalpha() == False:
+                    guess = list(input(f'Input a guess with {len(secret)} letters: '))
+                else:
+                    break
+            green_letters = 0
+            for j in range(len(secret)):
+                for k in range(len(guess)):
+                    if guess[k] == secret[j]:
+                        if '033' not in guess[k]:
+                            guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
+                        if j == k:
+                            guess[k] = '\033[32m' + guess[k][5] + '\033[0m' # makes green
+                            green_letters += 1
+            print(''.join(guess))
+            if green_letters == len(secret):
+                return True
+        return False
 
     return
 
