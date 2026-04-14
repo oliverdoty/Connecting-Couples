@@ -77,6 +77,7 @@ def custom_wordle_client_d():
         s.connect(HOST, PORT)
         # game
         
+
     return
 
 def valid_input(inp,up_lim,low_lim=0):
