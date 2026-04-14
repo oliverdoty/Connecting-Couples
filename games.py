@@ -44,9 +44,22 @@ def custom_wordle():
 
 def custom_wordle_server():
     # connect
+    HOST = '127.0.0.1'  # The server's hostname or IP address (self)
+    PORT = 65432        # The port used by the server
+    with create_new_socket() as s:
+        # Bind socket to address and publish contact info
+        s.bind(HOST, PORT)
+        s.listen()
+        print("Worlde server started. Listening on", (HOST, PORT))
 
-    print('awaiting secret input')
-    secret = s.recv()
+        # Answer incoming connection
+        conn2client, addr = s.accept()
+        print('Connected by', addr)
+
+        with conn2client:
+            print('awaiting secret input')
+            secret = s.recv()
+            
 
     return
 
