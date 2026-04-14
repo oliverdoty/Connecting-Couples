@@ -43,6 +43,11 @@ def custom_wordle():
     return False
 
 def custom_wordle_server():
+    # connect
+
+    print('awaiting secret input')
+    secret = s.recv()
+
     return
 
 def custom_wordle_client_s():
@@ -76,7 +81,7 @@ def custom_wordle_client_d():
     with create_new_socket() as s:
         s.connect(HOST, PORT)
         # game
-        
+
 
     return
 
