@@ -59,7 +59,13 @@ def custom_wordle_server():
         with conn2client:
             print('awaiting secret input')
             secret = s.recv()
+
+        conn2client, addr = s.accept()
+        print('Connected by', addr)
+
+        with conn2client:
             
+
 
     return
 
