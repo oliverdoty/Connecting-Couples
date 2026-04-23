@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib as plt
 import random
-from socket32 import create_new_socket
+import socket
 import nltk
 nltk.download('words')
 from nltk.corpus import words
@@ -46,9 +46,9 @@ def custom_wordle_server():
     # connect
     HOST = '127.0.0.1'  # The server's hostname or IP address (self)
     PORT = 65432        # The port used by the server
-    with create_new_socket() as s:
+    with socket.socket() as s:
         # Bind socket to address and publish contact info
-        s.bind(HOST, PORT)
+        s.bind((HOST, PORT))
         s.listen()
         print("Worlde server started. Listening on", (HOST, PORT))
 
@@ -58,7 +58,7 @@ def custom_wordle_server():
 
         with conn2client:
             print('awaiting secret input')
-            secret = s.recv()
+            secret = s.recv(1024)
 
         conn2client, addr = s.accept()
         print('Connected by', addr)
@@ -76,8 +76,8 @@ def custom_wordle_client_s():
 
     print('## Welcome to wordle! ##')
 
-    with create_new_socket() as s:
-        s.connect(HOST, PORT)
+    with socket.socket() as s:
+        s.connect((HOST, PORT))
         # game
         word_list = words.words()
         secret = list(input('What is the key word? ').lower()) # all lowercase for consistency
@@ -87,7 +87,7 @@ def custom_wordle_client_s():
             else:
                 break
         s.sendall(secret)
-        answer = s.recv()
+        answer = s.recv(1024)
         print(answer)
 
 def custom_wordle_client_d():
@@ -97,8 +97,8 @@ def custom_wordle_client_d():
 
     print('## Welcome to wordle! ##')
 
-    with create_new_socket() as s:
-        s.connect(HOST, PORT)
+    with socket.socket() as s:
+        s.connect((HOST, PORT))
         # game
         for i in range(6):
             guess = list(input('What is your guess? ').lower())
