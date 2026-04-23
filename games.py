@@ -100,11 +100,12 @@ def custom_wordle_client_d():
     with socket.socket() as s:
         s.connect((HOST, PORT))
         # game
+        length = s.recv(1024)
         for i in range(6):
-            guess = list(input('What is your guess? ').lower())
+            guess = list(input(f'Guess a word of length {length}:  ').lower())
             while True:
-                if len(guess) != len(secret) or ''.join(guess).isalpha() == False:
-                    guess = list(input(f'Input a guess with {len(secret)} letters: '))
+                if len(guess) != length or ''.join(guess).isalpha() == False:
+                    guess = list(input(f'Input a guess with {length} letters: '))
                 else:
                     break
             green_letters = 0
