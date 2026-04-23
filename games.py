@@ -64,6 +64,7 @@ def custom_wordle_server():
         print('Connected by', addr)
 
         with conn2client:
+            guess = s.recv(1024)
             green_letters = 0
             for j in range(len(secret)):
                 for k in range(len(guess)):
@@ -120,7 +121,8 @@ def custom_wordle_client_d():
                     guess = list(input(f'Input a guess with {length} letters: '))
                 else:
                     break
-            
+            s.sendall(guess)
+            accuracy = s.recv(1024)
 
     return
 
