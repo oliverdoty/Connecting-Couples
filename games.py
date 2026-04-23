@@ -46,22 +46,22 @@ def custom_wordle_server():
     # connect
     HOST = '127.0.0.1'  # The server's hostname or IP address (self)
     PORT = 65432        # The port used by the server
-    with socket.socket() as s:
+    with socket.socket() as ss:
         # Bind socket to address and publish contact info
-        s.bind((HOST, PORT))
-        s.listen()
+        ss.bind((HOST, PORT))
+        ss.listen()
         print("Worlde server started. Listening on", (HOST, PORT))
 
         # Answer incoming connection
-        conn2client, addr = s.accept()
+        conn2client, addr = ss.accept()
         print('Connected by', addr)
 
         with conn2client:
             print('awaiting secret input')
-            secret = s.recv(1024)
+            secret = ss.recv(1024)
 
-        conn2client, addr = s.accept()
-        print('Connected by', addr)
+            conn2client, addr = s.accept()
+            print('Connected by', addr)
 
         with conn2client:
             for i in range(6):
@@ -94,8 +94,8 @@ def custom_wordle_client_s():
 
     print('## Welcome to wordle! ##')
 
-    with socket.socket() as s:
-        s.connect((HOST, PORT))
+    with socket.socket() as ss:
+        ss.connect((HOST, PORT))
         # game
         word_list = words.words()
         secret = list(input('What is the key word? ').lower()) # all lowercase for consistency
@@ -104,8 +104,8 @@ def custom_wordle_client_s():
                 secret = list(input('Please enter a real word consisting of only characters in the alphabet: ').lower())
             else:
                 break
-        s.sendall(secret)
-        answer = s.recv(1024)
+        ss.sendall(secret)
+        answer = ss.recv(1024)
         print(answer)
 
 def custom_wordle_client_d():
@@ -116,9 +116,9 @@ def custom_wordle_client_d():
     print('## Welcome to wordle! ##')
 
     with socket.socket() as sd:
-        s.connect((HOST, PORT))
+        sd.connect((HOST, PORT))
         # game
-        length = s.recv(1024)
+        length = sd.recv(1024)
         for i in range(6):
             guess = list(input(f'Guess a word of length {length}:  ').lower())
             while True:
@@ -126,8 +126,8 @@ def custom_wordle_client_d():
                     guess = list(input(f'Input a guess with {length} letters: '))
                 else:
                     break
-            s.sendall(guess)
-            accuracy = s.recv(1024)
+            sd.sendall(guess)
+            accuracy = sd.recv(1024)
 
     return
 
