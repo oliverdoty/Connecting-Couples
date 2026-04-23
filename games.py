@@ -76,7 +76,7 @@ def custom_wordle_server():
                             green_letters += 1
             print(''.join(guess))
             if green_letters == len(secret):
-                return True
+                s.sendall()
         return False
 
 
