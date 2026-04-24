@@ -2,9 +2,7 @@ import numpy as np
 import matplotlib as plt
 import random
 import socket
-import nltk
-nltk.download('words')
-from nltk.corpus import words
+
 
 def twentyquestions():
     return
@@ -42,10 +40,13 @@ def custom_wordle():
             return True
     return False
 
+HOST = '127.0.0.1'
+PORT = 65431
+
 def custom_wordle_server():
     # connect
-    HOST = '127.0.0.1'  # The server's hostname or IP address (self)
-    PORT = 65432        # The port used by the server
+    #HOST = '127.0.0.1'  # The server's hostname or IP address (self)
+    #PORT = 65432        # The port used by the server
     with socket.socket() as ss:
         # Bind socket to address and publish contact info
         ss.bind((HOST, PORT))
@@ -53,21 +54,21 @@ def custom_wordle_server():
         print("Worlde server started. Listening on", (HOST, PORT))
 
         # Answer incoming connection
-        conn2client, addr = ss.accept()
-        print('Connected by', addr)
+        conn2clients, addrs = ss.accept()
+        print('Connected by', addrs)
 
-        with conn2client:
+        with conn2clients as cs:
             print('awaiting secret input')
-            secret = ss.recv(1024)
+            secret = cs.recv()#1024)
 
             with socket.socket() as sd:
 
-                conn2client, addr = sd.accept()
-                print('Connected by', addr)
+                conn2clientd, addrd = sd.accept()
+                print('Connected by', addrd)
 
-                with conn2client:
+                with conn2clientd as cd:
                     for i in range(6):
-                        guess = sd.recv(1024)
+                        guess = cd.recv(1024)
                         if guess == '':
                             break
                         green_letters = 0
@@ -81,28 +82,28 @@ def custom_wordle_server():
                                         green_letters += 1
                         accuracy = ''.join(guess)
                         if green_letters == len(secret):
-                            sd.sendall(0)
+                            cd.sendall(0)
                             break
                         else:
-                            sd.sendall(accuracy)
+                            cd.sendall(accuracy)
 
 
     return
 
 def custom_wordle_client_s():
 
-    HOST = '127.0.0.1'  # The server's hostname or IP address (self)
-    PORT = 65432        # The port used by the server
+    #HOST = '127.0.0.1'  # The server's hostname or IP address (self)
+    #PORT = 65432        # The port used by the server
 
     print('## Welcome to wordle! ##')
 
     with socket.socket() as ss:
         ss.connect((HOST, PORT))
+        print('connected')
         # game
-        word_list = words.words()
         secret = list(input('What is the key word? ').lower()) # all lowercase for consistency
         while True:
-            if ''.join(secret).isalpha() == False or secret not in word_list:
+            if ''.join(secret).isalpha() == False:
                 secret = list(input('Please enter a real word consisting of only characters in the alphabet: ').lower())
             else:
                 break
@@ -112,8 +113,8 @@ def custom_wordle_client_s():
 
 def custom_wordle_client_d():
 
-    HOST = '127.0.0.1'  # The server's hostname or IP address (self)
-    PORT = 65432        # The port used by the server
+    #HOST = '127.0.0.1'  # The server's hostname or IP address (self)
+    #PORT = 65432        # The port used by the server
 
     print('## Welcome to wordle! ##')
 
