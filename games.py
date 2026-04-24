@@ -54,19 +54,19 @@ def custom_wordle_server():
         print("Worlde server started. Listening on", (HOST, PORT))
 
         # Answer incoming connection
-        conn_s, addrs = ss.accept()
+        cs, addrs = ss.accept()
         print('Connected by', addrs)
 
-        with conn_s as cs:
+        with cs:
             print('awaiting secret input')
             secret = cs.recv()#1024)
 
             with socket.socket() as sd:
 
-                conn_d, addrd = sd.accept()
+                cd, addrd = sd.accept()
                 print('Connected by', addrd)
 
-                with conn_d as cd:
+                with cd:
                     for i in range(6):
                         guess = cd.recv(1024)
                         if guess == '':
