@@ -38,6 +38,29 @@ def custom_wordle_server():
                         conn_d.sendall('Congrats, you win!'.encode())
                         break
 
+                    #give feeback for guess
+                    guess = list[guess]
+                    result = [''] * len(guess)
+                    secret_remaining = list(secret)
+
+                    # First pass: mark greens
+                    for i in range(len(guess)):
+                        if guess[i] == secret[i]:
+                            result[i] = f'\033[32m{guess[i]}\033[0m'   # green
+                            secret_remaining[i] = None                  # consumed
+
+                    # Second pass: mark yellows
+                    for i in range(len(guess)):
+                        if result[i]:                                   # already green
+                            continue
+                        if guess[i] in secret_remaining:
+                            result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
+                            secret_remaining[secret_remaining.index(guess[i])] = None
+                        else:
+                            result[i] = guess[i]                        # no colour
+
+                    correct = all(guess[i] == secret[i] for i in range(len(guess)))
+                    return ''.join(result), correct
                     for j in range(len(secret)):
                         for k in range(len(guess)):
                             if guess[k] == secret[j]:
