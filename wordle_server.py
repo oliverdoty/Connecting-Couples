@@ -39,21 +39,22 @@ def custom_wordle_server():
                         break
 
                     #give feeback for guess
+                    secret_check = secret
                     result = [''] * len(guess)
 
                     # First pass: mark greens
                     for i in range(len(guess)):
-                        if guess[i] == secret[i]:
+                        if guess[i] == secret_check[i]:
                             result[i] = f'\033[32m{guess[i]}\033[0m'   # green
-                            secret[i] = None                  # consumed
+                            secret_check[i] = None                  # consumed
 
                     # Second pass: mark yellows
                     for i in range(len(guess)):
                         if result[i]:                                   # already green
                             continue
-                        if guess[i] in secret:
+                        if guess[i] in secret_check:
                             result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
-                            secret[secret.index(guess[i])] = None
+                            secret_check[secret_check.index(guess[i])] = None
                         else:
                             result[i] = guess[i]                        # no color
 
