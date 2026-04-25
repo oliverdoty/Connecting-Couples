@@ -21,7 +21,7 @@ def custom_wordle_client_d():
                     break
             s.sendall(guess.encode())
             feedback = s.recv(1024).decode()
-            print(feedback)
+            print('\n',feedback,'\n')
             if feedback == '':
                 print('disconnected')
                 break
