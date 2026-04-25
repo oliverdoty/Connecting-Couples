@@ -13,45 +13,41 @@ def custom_wordle_server():
         ss.listen(1)
         conn_s, addr_s = ss.accept()
         print(f"[server] Secret-setter connected from {addr_s}")
-    with socket.socket() as ss:
-        # Bind socket to address and publish contact info
-        ss.bind((HOST, PORT_S))
-        ss.listen()
-        print("Worlde server started. Listening on", (HOST, PORT_S))
 
-        # Answer incoming connection
-        cs, addrs = ss.accept()
-        print('Connected by', addrs)
-
-        with cs:
+        with conn_s:
             print('awaiting secret input')
-            secret = cs.recv()#1024)
+            secret_bytes = conn_s.recv(1024)
+            secret = list(secret_bytes.decode())
+            print(f'Server received secret: {secret}')
 
-            with socket.socket() as sd:
+print(f"[server] Waiting for guesser on {HOST}:{PORT_D} …")
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sd:
+        sd.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        sd.bind((HOST, PORT_D))
+        sd.listen(1)
+        conn_d, addr_d = sd.accept()
+        print(f"[server] Guesser connected from {addr_d}")
 
-                cd, addrd = sd.accept()
-                print('Connected by', addrd)
-
-                with cd:
-                    for i in range(6):
-                        guess = cd.recv(1024)
-                        if guess == '':
-                            break
-                        green_letters = 0
-                        for j in range(len(secret)):
-                            for k in range(len(guess)):
-                                if guess[k] == secret[j]:
-                                    if '033' not in guess[k]:
-                                        guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
-                                    if j == k:
-                                        guess[k] = '\033[32m' + guess[k][5] + '\033[0m' # makes green
-                                        green_letters += 1
-                        accuracy = ''.join(guess)
-                        if green_letters == len(secret):
-                            cd.sendall(0)
-                            break
-                        else:
-                            cd.sendall(accuracy)
+        with conn_d:
+                for i in range(6):
+                    guess = cd.recv(1024)
+                    if guess == '':
+                        break
+                    green_letters = 0
+                    for j in range(len(secret)):
+                        for k in range(len(guess)):
+                            if guess[k] == secret[j]:
+                                if '033' not in guess[k]:
+                                    guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
+                                if j == k:
+                                    guess[k] = '\033[32m' + guess[k][5] + '\033[0m' # makes green
+                                    green_letters += 1
+                    accuracy = ''.join(guess)
+                    if green_letters == len(secret):
+                        cd.sendall(0)
+                        break
+                    else:
+                        cd.sendall(accuracy)
 
 
     return
