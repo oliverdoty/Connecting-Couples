@@ -13,7 +13,7 @@ def custom_wordle_client_s():
             secret = input('Please enter a real word consisting of only characters in the alphabet: ').lower()
         else:
             break
-        
+
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT_S))
         s.sendall(secret.encode())

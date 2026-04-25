@@ -42,7 +42,7 @@ def custom_wordle_server():
         with conn_s:
             print('awaiting secret input')
             secret = list(conn_s.recv(1024).decode())
-            print(f'Server received secret: {secret}')
+            print(f'Server received secret: {''.join(secret)}')
 
             print(f"Waiting for dumb client on {HOST}:{PORT_D} …")
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sd:
@@ -66,9 +66,9 @@ def custom_wordle_server():
                             break
 
                         feedback = check_guess(guess,secret)
-                        if i == 6:
-                            conn_s.sendall(f'{feedback}\nThe other player lost! They could not guess {secret}'.encode()) # losing messages
-                            feedback = f'{feedback}\nSorry, you lost. The answer was {secret}'
+                        if i == 5:
+                            conn_s.sendall(f'{feedback}\nThe other player lost! They could not guess {''.join(secret)}'.encode()) # losing messages
+                            feedback = f'{feedback}\nSorry, you lost. The answer was {''.join(secret)}'
                             print('Dumb client loses')
                         conn_d.sendall(feedback.encode())
                         conn_s.sendall(feedback.encode())
