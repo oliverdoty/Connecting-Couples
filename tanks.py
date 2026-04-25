@@ -20,10 +20,10 @@ def tanks():
         power = valid_input(power,100)
         target = 255 # example
         if (target - 20) <= (power**2*np.sin(2*np.deg2rad(theta))/9.8 + loc) <= (target + 20):
-            print('BOOM') # hit
+            print('\033[32mBOOM') # hit
             break
         else:
-            print(f'\e[0;31m miss \e[0m')
+            print(f'\033[31mmiss\033[0m')
     return
 
 if __name__ == '__main__':
