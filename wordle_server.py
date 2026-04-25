@@ -11,7 +11,7 @@ def check_guess(guess,secret):
     for i in range(len(guess)):
         if guess[i] == secret_remaining[i]:
             result[i] = f'\033[32m{guess[i]}\033[0m'   # green
-            result[i] = None                  # consumed
+            secret_remaining[i] = None                  # consumed
 
     # Second pass: mark yellows
     for i in range(len(guess)):
