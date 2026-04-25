@@ -22,6 +22,9 @@ def custom_wordle_client_d():
             s.sendall(guess.encode())
             accuracy = s.recv(1024).decode()
             print(accuracy)
+            if accuracy == '':
+                print('disconnected')
+                break
             if accuracy == 'Congrats, you win!':
                 break
 
