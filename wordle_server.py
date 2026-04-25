@@ -29,6 +29,7 @@ def custom_wordle_server():
             print(f"[server] Guesser connected from {addr_d}")
 
             with conn_d:
+                conn_d.sendall(str(len(secret)).encode())
                 for i in range(6):
                     guess = cd.recv(1024)
                     if guess == '':
