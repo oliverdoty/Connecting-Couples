@@ -61,11 +61,11 @@ def custom_wordle_server():
                             break
                         if guess == secret: # client_d wins!
                             conn_d.sendall('Congrats, you win!'.encode())
+                            conn_s.sendall('The other player won!')
                             break
 
                         feedback = check_guess(guess,secret)
                         conn_d.sendall(feedback.encode())
-        
 
 if __name__ == '__main__':
     custom_wordle_server()
