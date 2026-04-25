@@ -31,15 +31,14 @@ def custom_wordle_server():
             with conn_d:
                 conn_d.sendall(str(len(secret)).encode())
                 while True:
-                    guess = conn_d.recv(1024).encode()
-                    if guess == '':
+                    guess = list[conn_d.recv(1024).encode()]
+                    if guess == []:
                         break
                     if guess == secret: # client_d wins!
                         conn_d.sendall('Congrats, you win!'.encode())
                         break
 
                     #give feeback for guess
-                    guess = list[guess]
                     result = [''] * len(guess)
                     secret_remaining = list(secret)
 
