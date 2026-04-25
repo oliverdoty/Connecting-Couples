@@ -1,3 +1,6 @@
+import numpy as np
+from matplotlib import pyplot as plt
+
 def valid_input(inp,up_lim,low_lim=0):
     while True:
         try:
