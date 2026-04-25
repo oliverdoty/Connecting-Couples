@@ -56,15 +56,5 @@ def custom_wordle_server():
                         else:
                             result[i] = guess[i]                        # no colour
 
-                    correct = all(guess[i] == secret[i] for i in range(len(guess)))
-                    return ''.join(result), correct
-
-                    for j in range(len(secret)):
-                        for k in range(len(guess)):
-                            if guess[k] == secret[j]:
-                                if '033' not in guess[k]:
-                                    guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
-                                if j == k:
-                                    guess[k] = '\033[32m' + guess[k][5] + '\033[0m' # makes green
-                    accuracy = ''.join(guess)
-                    conn_d.sendall(accuracy.encode())
+                    feedback = ''.join(result)
+                    conn_d.sendall(feedback.encode())
