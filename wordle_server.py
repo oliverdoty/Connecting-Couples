@@ -1,7 +1,28 @@
 import socket
 
 
-def 
+def check_guess(guess,secret):
+
+    #give feeback for guess
+    result = [''] * len(guess)
+
+    # First pass: mark greens
+    for i in range(len(guess)):
+        if guess[i] == secret[i]:
+            result[i] = f'\033[32m{guess[i]}\033[0m'   # green
+            secret[i] = None                  # consumed
+
+    # Second pass: mark yellows
+    for i in range(len(guess)):
+        if result[i]:                                   # already green
+            continue
+        if guess[i] in secret:
+            result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
+            secret[secret.index(guess[i])] = None
+        else:
+            result[i] = guess[i]                        # no color
+
+    return ''.join(result)
 
 def custom_wordle_server():
     # connect
@@ -34,36 +55,13 @@ def custom_wordle_server():
                 conn_d.sendall(str(len(secret)).encode())
                 for i in range(6):
                     guess = list(conn_d.recv(1024).decode())
-                    print('guessed:', guess)
-                    print(secret)
+
                     if guess == []:
                         break
                     if guess == secret: # client_d wins!
                         conn_d.sendall('Congrats, you win!'.encode())
-                        break
 
-                    #give feeback for guess
-                    result = [''] * len(guess)
-
-                    # First pass: mark greens
-                    for i in range(len(guess)):
-                        if guess[i] == secret[i]:
-                            result[i] = f'\033[32m{guess[i]}\033[0m'   # green
-                            secret[i] = None                  # consumed
-
-                    # Second pass: mark yellows
-                    for i in range(len(guess)):
-                        if result[i]:                                   # already green
-                            continue
-                        if guess[i] in secret:
-                            result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
-                            secret[secret.index(guess[i])] = None
-                        else:
-                            result[i] = guess[i]                        # no color
-
-                    feedback = ''.join(result)
-                    if i == 6:
-                        feedback = f'{feedback}\nYou lose! The answer was {secret}'
+                    feedback = check_guess(guess,secret)
                     conn_d.sendall(feedback.encode())
 
 if __name__ == '__main__':
