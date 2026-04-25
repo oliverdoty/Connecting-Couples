@@ -34,7 +34,7 @@ def custom_wordle_server():
                     print('guessed:', guess)
                     if guess == []:
                         break
-                    if ''.join(guess) == secret: # client_d wins!
+                    if guess == secret: # client_d wins!
                         conn_d.sendall('Congrats, you win!'.encode())
                         break
 
