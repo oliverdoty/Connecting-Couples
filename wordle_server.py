@@ -19,7 +19,7 @@ def check_guess(guess,secret):
             continue
         if guess[i] in secret:
             result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
-            secret_remaining[secret_remaining.index(guess[i])] = None
+            secret_remaining[secret.index(guess[i])] = None
         else:
             result[i] = guess[i]                        # no color
 
