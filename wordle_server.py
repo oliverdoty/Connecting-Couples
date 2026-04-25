@@ -20,15 +20,15 @@ def custom_wordle_server():
             secret = list(secret_bytes.decode())
             print(f'Server received secret: {secret}')
 
-print(f"[server] Waiting for guesser on {HOST}:{PORT_D} …")
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sd:
-        sd.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sd.bind((HOST, PORT_D))
-        sd.listen(1)
-        conn_d, addr_d = sd.accept()
-        print(f"[server] Guesser connected from {addr_d}")
+        print(f"[server] Waiting for guesser on {HOST}:{PORT_D} …")
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sd:
+            sd.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            sd.bind((HOST, PORT_D))
+            sd.listen(1)
+            conn_d, addr_d = sd.accept()
+            print(f"[server] Guesser connected from {addr_d}")
 
-        with conn_d:
+            with conn_d:
                 for i in range(6):
                     guess = cd.recv(1024)
                     if guess == '':
