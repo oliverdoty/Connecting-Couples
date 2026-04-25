@@ -61,7 +61,7 @@ def custom_wordle_server():
                             break
                         if guess == secret: # client_d wins!
                             conn_d.sendall(f'\033[32m{str(secret)}\033[0m\nCongrats, you win!'.encode())
-                            conn_s.sendall(f'The other player won! They guessed {str(secret)}'.encode())
+                            conn_s.sendall(f'The other player won! They guessed \033[32m{''.join(secret)}\033[0m'.encode())
                             break
 
                         feedback = check_guess(guess,secret)
