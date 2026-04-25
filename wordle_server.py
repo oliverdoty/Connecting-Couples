@@ -60,7 +60,7 @@ def custom_wordle_server():
                         if guess == []:
                             break
                         if guess == secret: # client_d wins!
-                            conn_d.sendall('Congrats, you win!'.encode())
+                            conn_d.sendall('f'\033[32m{guess[i]}\033[0m'Congrats, you win!'.encode())
                             conn_s.sendall('The other player won!')
                             break
 
