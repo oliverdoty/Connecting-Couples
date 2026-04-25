@@ -1,26 +1,27 @@
 import socket
 
 
-def check_guess(gue,sec):
+def check_guess(guess,secret):
 
     #give feeback for guess
-    result = [''] * len(gue)
+    result = [''] * len(guess)
+    secret_remaining = list(secret)
 
     # First pass: mark greens
-    for i in range(len(gue)):
-        if gue[i] == sec[i]:
-            sec[i] = f'\033[32m{gue[i]}\033[0m'   # green
+    for i in range(len(guess)):
+        if guess[i] == secret[i]:
+            secret_remaining[i] = f'\033[32m{guess[i]}\033[0m'   # green
             result[i] = None                  # consumed
 
     # Second pass: mark yellows
-    for i in range(len(gue)):
+    for i in range(len(guess)):
         if result[i]:                                   # already green
             continue
-        if gue[i] in sec:
-            result[i] = f'\033[33m{gue[i]}\033[0m'   # yellow
-            sec[sec.index(gue[i])] = None
+        if guess[i] in secret:
+            result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
+            secret_remaining[secret_remaining.index(guess[i])] = None
         else:
-            result[i] = gue[i]                        # no color
+            result[i] = guess[i]                        # no color
 
     return ''.join(result)
 
@@ -60,6 +61,7 @@ def custom_wordle_server():
                         break
                     if guess == secret: # client_d wins!
                         conn_d.sendall('Congrats, you win!'.encode())
+                        break
 
                     feedback = check_guess(guess,secret)
                     conn_d.sendall(feedback.encode())
