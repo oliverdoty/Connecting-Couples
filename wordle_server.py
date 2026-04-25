@@ -60,7 +60,7 @@ def custom_wordle_server():
                         if guess == []:
                             break
                         if guess == secret: # client_d wins!
-                            conn_d.sendall(f'\033[32m{''.join(secret)}\033[0m\nCongrats, you win!'.encode()) # winning messages
+                            conn_d.sendall(f'\033[32m{''.join(secret)}\033[0m\n\nCongrats, you win!'.encode()) # winning messages
                             conn_s.sendall(f'\033[32m{''.join(secret)}\033[0m\nThe other player won!'.encode())
                             print('Dumb client wins')
                             break
@@ -68,7 +68,7 @@ def custom_wordle_server():
                         feedback = check_guess(guess,secret)
                         if i == 5:
                             conn_s.sendall(f'{feedback}\nThe other player lost! They could not guess {''.join(secret)}'.encode()) # losing messages
-                            feedback = f'{feedback}\nSorry, you lost. The answer was {''.join(secret)}'
+                            feedback = f'{feedback}\n\nSorry, you lost. The answer was {''.join(secret)}'
                             print('Dumb client loses')
                         conn_d.sendall(feedback.encode())
                         conn_s.sendall(feedback.encode())
