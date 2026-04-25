@@ -16,8 +16,7 @@ def custom_wordle_server():
 
         with conn_s:
             print('awaiting secret input')
-            secret_bytes = conn_s.recv(1024)
-            secret = list(secret_bytes.decode())
+            secret = list(conn_s.recv(1024).decode())
             print(f'Server received secret: {secret}')
 
         print(f"[server] Waiting for guesser on {HOST}:{PORT_D} …")
@@ -31,7 +30,7 @@ def custom_wordle_server():
             with conn_d:
                 conn_d.sendall(str(len(secret)).encode())
                 while True:
-                    guess = list[conn_d.recv(1024).encode()]
+                    guess = list(conn_d.recv(1024).encode())
                     if guess == []:
                         break
                     if guess == secret: # client_d wins!
@@ -60,6 +59,7 @@ def custom_wordle_server():
 
                     correct = all(guess[i] == secret[i] for i in range(len(guess)))
                     return ''.join(result), correct
+                
                     for j in range(len(secret)):
                         for k in range(len(guess)):
                             if guess[k] == secret[j]:
