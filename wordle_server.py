@@ -57,4 +57,6 @@ def custom_wordle_server():
                             result[i] = guess[i]                        # no colour
 
                     feedback = ''.join(result)
+                    if i == 6:
+                        feedback = f'{feedback}\nYou lose! The answer was {secret}'
                     conn_d.sendall(feedback.encode())
