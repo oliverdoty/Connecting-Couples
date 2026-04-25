@@ -11,8 +11,7 @@ def custom_wordle_client_d():
         s.connect((HOST, PORT_D))
 
         # Receive word length from server
-        length_bytes = s.recv(1024)
-        secret_length = int(length_bytes.decode())
+        secret_length = int(s.recv(1024).decode())
         for i in range(6):
             guess = input(f'Guess a word of length {secret_length}:  ').lower()
             while True:
@@ -21,7 +20,7 @@ def custom_wordle_client_d():
                 else:
                     break
             s.sendall(guess.encode())
-            accuracy = s.recv(1024).encode()
+            accuracy = s.recv(1024).decode()
             print(accuracy)
             if accuracy == 'Congrats, you win!':
                 break
