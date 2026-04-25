@@ -66,8 +66,8 @@ def custom_wordle_server():
 
                         feedback = check_guess(guess,secret)
                         if i == 6: # did not win
+                            conn_s.sendall(f'{feedback}\nThe other player lost! They could not guess {secret}'.encode())
                             feedback = f'{feedback}\nSorry, you lost. The answer was {secret}'
-                            conn_s.sendall(f'The other player lost! They could not guess {secret}'.encode())
                         conn_d.sendall(feedback.encode())
 
 if __name__ == '__main__':
