@@ -6,4 +6,4 @@ I want to create a platform where 2 clients can play mini games against each oth
 Custom Wordle:
 The smart client sends any word.
 The dumb client repeatedly guesses and sends their guess to the server which checks the guess against the secret.
-!! Start the server first, then smart client, then dumb client !!
+!! In 3 separate terminals, start the server first, then smart client, input the secret word, then start the dumb client !!
