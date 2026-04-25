@@ -29,7 +29,7 @@ def custom_wordle_server():
 
             with conn_d:
                 conn_d.sendall(str(len(secret)).encode())
-                while True:
+                for i in range(6):
                     guess = list(conn_d.recv(1024).encode())
                     if guess == []:
                         break
