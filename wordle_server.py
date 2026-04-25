@@ -56,7 +56,7 @@ def custom_wordle_server():
                             result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
                             secret[secret.index(guess[i])] = None
                         else:
-                            result[i] = guess[i]                        # no colour
+                            result[i] = guess[i]                        # no color
 
                     feedback = ''.join(result)
                     if i == 6:
