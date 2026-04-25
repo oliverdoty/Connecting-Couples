@@ -14,10 +14,10 @@ def custom_wordle_client_d():
         length_bytes = s.recv(1024)
         secret_length = int(length_bytes.decode())
         for i in range(6):
-            guess = list(input(f'Guess a word of length {secret_length}:  ').lower())
+            guess = input(f'Guess a word of length {secret_length}:  ').lower()
             while True:
-                if len(guess) != secret_length or ''.join(guess).isalpha() == False:
-                    guess = list(input(f'Input a guess with {secret_length} letters: '))
+                if len(guess) != secret_length or guess.isalpha() == False:
+                    guess = input(f'Input a guess with {secret_length} letters: ')
                 else:
                     break
             s.sendall(guess.encode())

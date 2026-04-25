@@ -7,10 +7,10 @@ def custom_wordle_client_s():
 
     print('## Welcome to wordle! ##')
 
-    secret = list(input('What is the key word? ').lower()) # all lowercase for consistency
+    secret = input('What is the key word? ').lower() # all lowercase for consistency
     while True:
-        if ''.join(secret).isalpha() == False:
-            secret = list(input('Please enter a real word consisting of only characters in the alphabet: ').lower())
+        if secret.isalpha() == False:
+            secret = input('Please enter a real word consisting of only characters in the alphabet: ').lower()
         else:
             break
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
