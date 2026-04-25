@@ -44,27 +44,28 @@ def custom_wordle_server():
             secret = list(conn_s.recv(1024).decode())
             print(f'Server received secret: {secret}')
 
-        print(f"[server] Waiting for guesser on {HOST}:{PORT_D} …")
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sd:
-            sd.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            sd.bind((HOST, PORT_D))
-            sd.listen(1)
-            conn_d, addr_d = sd.accept()
-            print(f"[server] Guesser connected from {addr_d}")
+            print(f"[server] Waiting for guesser on {HOST}:{PORT_D} …")
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sd:
+                sd.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                sd.bind((HOST, PORT_D))
+                sd.listen(1)
+                conn_d, addr_d = sd.accept()
+                print(f"[server] Guesser connected from {addr_d}")
 
-            with conn_d:
-                conn_d.sendall(str(len(secret)).encode())
-                for i in range(6):
-                    guess = list(conn_d.recv(1024).decode())
+                with conn_d:
+                    conn_d.sendall(str(len(secret)).encode())
+                    for i in range(6):
+                        guess = list(conn_d.recv(1024).decode())
 
-                    if guess == []:
-                        break
-                    if guess == secret: # client_d wins!
-                        conn_d.sendall('Congrats, you win!'.encode())
-                        break
+                        if guess == []:
+                            break
+                        if guess == secret: # client_d wins!
+                            conn_d.sendall('Congrats, you win!'.encode())
+                            break
 
-                    feedback = check_guess(guess,secret)
-                    conn_d.sendall(feedback.encode())
+                        feedback = check_guess(guess,secret)
+                        conn_d.sendall(feedback.encode())
+        
 
 if __name__ == '__main__':
     custom_wordle_server()
