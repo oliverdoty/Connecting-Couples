@@ -7,17 +7,13 @@ def custom_wordle_client_s():
 
     print('## Welcome to wordle! ##')
 
-    with socket.socket() as ss:
-        ss.connect((HOST, PORT_S))
-        print('connected')
-        # game
-        secret = list(input('What is the key word? ').lower()) # all lowercase for consistency
-        while True:
-            if ''.join(secret).isalpha() == False:
-                secret = list(input('Please enter a real word consisting of only characters in the alphabet: ').lower())
-            else:
-                break
-        ss.sendall(secret)
-        answer = ss.recv(1024)
-        print(answer)
+    secret = list(input('What is the key word? ').lower()) # all lowercase for consistency
+    while True:
+        if ''.join(secret).isalpha() == False:
+            secret = list(input('Please enter a real word consisting of only characters in the alphabet: ').lower())
+        else:
+            break
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT_S))
+        s.sendall(secret.encode())
 

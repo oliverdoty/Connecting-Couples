@@ -7,18 +7,21 @@ def custom_wordle_client_d():
 
     print('## Welcome to wordle! ##')
 
-    with socket.socket() as sd:
-        sd.connect((HOST, PORT_D))
-        # game
-        length = sd.recv(1024)
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT_D))
+
+        # Receive word length from server
+        length_bytes = s.recv(1024)
+        secret_length = int(length_bytes.decode())
         for i in range(6):
-            guess = list(input(f'Guess a word of length {length}:  ').lower())
+            guess = list(input(f'Guess a word of length {secret_length}:  ').lower())
             while True:
-                if len(guess) != length or ''.join(guess).isalpha() == False:
-                    guess = list(input(f'Input a guess with {length} letters: '))
+                if len(guess) != secret_length or ''.join(guess).isalpha() == False:
+                    guess = list(input(f'Input a guess with {secret_length} letters: '))
                 else:
                     break
-            sd.sendall(guess)
-            accuracy = sd.recv(1024)
-
-    return
+            s.sendall(guess.encode())
+            accuracy = s.recv(1024).encode()
+            print(accuracy)
+            if accuracy == 'Congrats, you win!':
+                break

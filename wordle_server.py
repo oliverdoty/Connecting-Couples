@@ -30,11 +30,14 @@ def custom_wordle_server():
 
             with conn_d:
                 conn_d.sendall(str(len(secret)).encode())
-                for i in range(6):
-                    guess = cd.recv(1024)
+                while True:
+                    guess = conn_d.recv(1024).encode()
                     if guess == '':
                         break
-                    green_letters = 0
+                    if guess == secret: # client_d wins!
+                        conn_d.sendall('Congrats, you win!'.encode())
+                        break
+
                     for j in range(len(secret)):
                         for k in range(len(guess)):
                             if guess[k] == secret[j]:
@@ -42,13 +45,5 @@ def custom_wordle_server():
                                     guess[k] = '\033[33m' + guess[k] + '\033[0m' # makes yellow
                                 if j == k:
                                     guess[k] = '\033[32m' + guess[k][5] + '\033[0m' # makes green
-                                    green_letters += 1
                     accuracy = ''.join(guess)
-                    if green_letters == len(secret):
-                        cd.sendall(0)
-                        break
-                    else:
-                        cd.sendall(accuracy)
-
-
-    return
+                    conn_d.sendall(accuracy.encode())
