@@ -19,7 +19,7 @@ def tanks():
         power = input('What power would you like to shoot at? (1-100) ')
         power = valid_input(power,100)
         target = 255 # example
-        if (target - 20) <= (power**2*np.sin(2*np.deg2rad(theta))/9.8) <= (target + 20):
+        if (target - 20) <= (power**2*np.sin(2*np.deg2rad(theta))/9.8 + loc) <= (target + 20):
             print('BOOM') # hit
             break
         else:
