@@ -5,7 +5,14 @@ def custom_wordle_server():
     HOST = '127.0.0.1'  # The server's hostname or IP address (self)
     PORT_S = 65432        # The port used by the server
     PORT_D = 23456
-    
+
+    print(f"[server] Waiting for smart client on {HOST}:{PORT_S} …")
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as ss:
+        ss.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        ss.bind((HOST, PORT_S))
+        ss.listen(1)
+        conn_s, addr_s = ss.accept()
+        print(f"[server] Secret-setter connected from {addr_s}")
     with socket.socket() as ss:
         # Bind socket to address and publish contact info
         ss.bind((HOST, PORT_S))
