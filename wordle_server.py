@@ -39,7 +39,7 @@ def custom_wordle_server():
                         break
 
                     #give feeback for guess
-                    result = []
+                    del result
                     result = [''] * len(guess)
 
                     # First pass: mark greens
