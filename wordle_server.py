@@ -10,14 +10,14 @@ def check_guess(gue,sec):
     for i in range(len(gue)):
         if gue[i] == sec[i]:
             sec[i] = f'\033[32m{gue[i]}\033[0m'   # green
-            sec[i] = None                  # consumed
+            result[i] = None                  # consumed
 
     # Second pass: mark yellows
     for i in range(len(gue)):
         if result[i]:                                   # already green
             continue
         if gue[i] in sec:
-            result[i] = f'\033[33m{g[i]}\033[0m'   # yellow
+            result[i] = f'\033[33m{gue[i]}\033[0m'   # yellow
             sec[sec.index(gue[i])] = None
         else:
             result[i] = gue[i]                        # no color
