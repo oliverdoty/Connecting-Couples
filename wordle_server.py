@@ -1,26 +1,26 @@
 import socket
 
 
-def check_guess(guess,secret):
+def check_guess(gue,sec):
 
     #give feeback for guess
-    result = [''] * len(guess)
+    result = [''] * len(gue)
 
     # First pass: mark greens
-    for i in range(len(guess)):
-        if guess[i] == secret[i]:
-            result[i] = f'\033[32m{guess[i]}\033[0m'   # green
-            secret[i] = None                  # consumed
+    for i in range(len(gue)):
+        if gue[i] == sec[i]:
+            sec[i] = f'\033[32m{gue[i]}\033[0m'   # green
+            sec[i] = None                  # consumed
 
     # Second pass: mark yellows
-    for i in range(len(guess)):
+    for i in range(len(gue)):
         if result[i]:                                   # already green
             continue
-        if guess[i] in secret:
-            result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
-            secret[secret.index(guess[i])] = None
+        if gue[i] in sec:
+            result[i] = f'\033[33m{g[i]}\033[0m'   # yellow
+            sec[sec.index(gue[i])] = None
         else:
-            result[i] = guess[i]                        # no color
+            result[i] = gue[i]                        # no color
 
     return ''.join(result)
 
