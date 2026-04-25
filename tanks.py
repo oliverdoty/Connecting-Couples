@@ -24,6 +24,12 @@ def tanks():
             break
         else:
             print(f'\033[31mmiss\033[0m')
+        tt = np.array([1,2,3])
+        fig,ax = plt.subplots()
+        ax.plot(tt, tt*2)
+        ax.legend()
+        ax.set_ylabel('Y-position [m]')
+        ax.set_xlabel('X-position [m]');
     return
 
 if __name__ == '__main__':
