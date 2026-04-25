@@ -4,9 +4,6 @@ import random
 import socket
 
 
-def twentyquestions():
-    return
-
 def custom_wordle():
 
     '''Custom Wordle Game
