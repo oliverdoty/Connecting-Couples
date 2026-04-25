@@ -23,7 +23,7 @@ def tanks():
             print('BOOM') # hit
             break
         else:
-            print('miss')
+            print('\e[0;31mmiss\e[0m')
     return
 
 if __name__ == '__main__':
