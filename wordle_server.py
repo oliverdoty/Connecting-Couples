@@ -60,3 +60,6 @@ def custom_wordle_server():
                     if i == 6:
                         feedback = f'{feedback}\nYou lose! The answer was {secret}'
                     conn_d.sendall(feedback.encode())
+
+if __name__ == '__main__':
+    custom_wordle_server()

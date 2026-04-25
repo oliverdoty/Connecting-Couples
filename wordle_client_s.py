@@ -17,3 +17,5 @@ def custom_wordle_client_s():
         s.connect((HOST, PORT_S))
         s.sendall(secret.encode())
 
+if __name__ == '__main__':
+    custom_wordle_client_s()

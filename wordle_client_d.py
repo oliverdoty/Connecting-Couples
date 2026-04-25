@@ -25,3 +25,6 @@ def custom_wordle_client_d():
             print(accuracy)
             if accuracy == 'Congrats, you win!':
                 break
+
+if __name__ == '__main__':
+    custom_wordle_client_d()
