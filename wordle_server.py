@@ -5,11 +5,11 @@ def check_guess(guess,secret):
 
     #give feeback for guess
     result = [''] * len(guess)
-    secret_remaining = list(secret)
+    secret_remaining = list(secret) # create a new copy of secret
 
     # First pass: mark greens
     for i in range(len(guess)):
-        if guess[i] == secret[i]:
+        if guess[i] == secret_remaining[i]:
             secret_remaining[i] = f'\033[32m{guess[i]}\033[0m'   # green
             result[i] = None                  # consumed
 
@@ -17,9 +17,9 @@ def check_guess(guess,secret):
     for i in range(len(guess)):
         if result[i]:                                   # already green
             continue
-        if guess[i] in secret:
+        if guess[i] in secret_remaining:
             result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
-            secret_remaining[secret.index(guess[i])] = None
+            secret_remaining[secret_remaining.index(guess[i])] = None
         else:
             result[i] = guess[i]                        # no color
 
