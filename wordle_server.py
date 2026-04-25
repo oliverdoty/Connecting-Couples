@@ -63,11 +63,11 @@ def custom_wordle_server():
                             conn_d.sendall(f'\033[32m{secret}\033[0m\nCongrats, you win!'.encode())
                             conn_s.sendall(f'The other player won! They guessed {secret}'.encode())
                             break
+
+                        feedback = check_guess(guess,secret)
                         if i == 6: # did not win
-                            feedback = f'Sorry, you lost. The answer was {secret}'
+                            feedback = f'{feedback}\nSorry, you lost. The answer was {secret}'
                             conn_s.sendall(f'The other player lost! They could not guess {secret}'.encode())
-                        else:
-                            feedback = check_guess(guess,secret)
                         conn_d.sendall(feedback.encode())
 
 if __name__ == '__main__':
