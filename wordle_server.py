@@ -1,5 +1,8 @@
 import socket
 
+
+def 
+
 def custom_wordle_server():
     # connect
     HOST = '127.0.0.1'  # The server's hostname or IP address (self)
@@ -40,22 +43,21 @@ def custom_wordle_server():
                         break
 
                     #give feeback for guess
-                    secret_check = secret
                     result = [''] * len(guess)
 
                     # First pass: mark greens
                     for i in range(len(guess)):
-                        if guess[i] == secret_check[i]:
+                        if guess[i] == secret[i]:
                             result[i] = f'\033[32m{guess[i]}\033[0m'   # green
-                            secret_check[i] = None                  # consumed
+                            secret[i] = None                  # consumed
 
                     # Second pass: mark yellows
                     for i in range(len(guess)):
                         if result[i]:                                   # already green
                             continue
-                        if guess[i] in secret_check:
+                        if guess[i] in secret:
                             result[i] = f'\033[33m{guess[i]}\033[0m'   # yellow
-                            secret_check[secret_check.index(guess[i])] = None
+                            secret[secret.index(guess[i])] = None
                         else:
                             result[i] = guess[i]                        # no color
 
