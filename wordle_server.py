@@ -40,6 +40,9 @@ def custom_wordle_server():
         print(f"Smart client connected from {addr_s}")
 
         with conn_s:
+            print('awaiting secret input')
+            secret = list(conn_s.recv(1024).decode())
+            print(f'Server received secret: {secret}')
 
             print(f"Waiting for dumb client on {HOST}:{PORT_D} …")
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sd:
@@ -50,10 +53,6 @@ def custom_wordle_server():
                 print(f"Dumb client connected from {addr_d}")
 
                 with conn_d:
-                    print('Everyond connected. Awaiting secret input')
-                    secret = list(conn_s.recv(1024).decode())
-                    print(f'Server received secret: {secret}')
-
                     conn_d.sendall(str(len(secret)).encode())
                     for i in range(6):
                         guess = list(conn_d.recv(1024).decode())
