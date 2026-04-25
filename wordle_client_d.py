@@ -20,12 +20,12 @@ def custom_wordle_client_d():
                 else:
                     break
             s.sendall(guess.encode())
-            accuracy = s.recv(1024).decode()
-            print(accuracy)
-            if accuracy == '':
+            feedback = s.recv(1024).decode()
+            print(feedback)
+            if feedback == '':
                 print('disconnected')
                 break
-            if accuracy == 'Congrats, you win!':
+            if '!' in feedback:
                 break
 
 if __name__ == '__main__':

@@ -19,7 +19,7 @@ def custom_wordle_client_s():
         while True:
             feedback = s.recv(1024).decode()
             print(feedback)
-            if len(feedback) > len(secret):
+            if '!' in feedback or feedback == '':
                 break
 
 if __name__ == '__main__':
