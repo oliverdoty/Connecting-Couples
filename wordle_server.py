@@ -69,6 +69,7 @@ def custom_wordle_server():
                             conn_s.sendall(f'{feedback}\nThe other player lost! They could not guess {secret}'.encode())
                             feedback = f'{feedback}\nSorry, you lost. The answer was {secret}'
                         conn_d.sendall(feedback.encode())
+                        conn_s.sendall(feedback.encode())
 
 if __name__ == '__main__':
     custom_wordle_server()

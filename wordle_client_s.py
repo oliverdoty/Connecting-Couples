@@ -16,6 +16,11 @@ def custom_wordle_client_s():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT_S))
         s.sendall(secret.encode())
+        while True:
+            feedback = s.recv(1024).decode()
+            print(feedback)
+            if len(feedback) > len(secret):
+                break
 
 if __name__ == '__main__':
     custom_wordle_client_s()
