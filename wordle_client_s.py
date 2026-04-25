@@ -17,9 +17,9 @@ def custom_wordle_client_s():
         s.connect((HOST, PORT_S))
         s.sendall(secret.encode())
         while True:
-            feedback = s.recv(1024).decode()
+            feedback = s.recv(1024).decode() # checking in on status of game
             print(feedback)
-            if '!' in feedback or feedback == '':
+            if '!' in feedback or feedback == '': # player either won or lost
                 break
 
 if __name__ == '__main__':

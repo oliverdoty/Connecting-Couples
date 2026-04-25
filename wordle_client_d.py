@@ -25,7 +25,7 @@ def custom_wordle_client_d():
             if feedback == '':
                 print('disconnected')
                 break
-            if '!' in feedback:
+            if '!' in feedback: # either won or lost
                 break
 
 if __name__ == '__main__':
