@@ -31,9 +31,10 @@ def custom_wordle_server():
                 conn_d.sendall(str(len(secret)).encode())
                 for i in range(6):
                     guess = list(conn_d.recv(1024).decode())
+                    print('guessed:', guess)
                     if guess == []:
                         break
-                    if guess == secret: # client_d wins!
+                    if ''.join(guess) == secret: # client_d wins!
                         conn_d.sendall('Congrats, you win!'.encode())
                         break
 
