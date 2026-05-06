@@ -5,22 +5,25 @@ def custom_wordle_client_s():
     HOST = '127.0.0.1'  # The server's hostname or IP address (self)
     PORT_S = 65432        # The port used by the server
 
-    print('## Welcome to wordle! ##')
+    print('## Welcome to wordle! ##\nYour opponent will be given 6 chances\nto guess your word.')
 
-    secret = input('What is the key word? ').lower() # all lowercase for consistency
-    while True:
+    secret = input('What is the key word? ').lower() # input secret
+    while True: # verifies that secret is exclusively made of letters
         if secret.isalpha() == False:
             secret = input('Please enter a real word consisting of only characters in the alphabet: ').lower()
         else:
             break
 
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: # connect to server
         s.connect((HOST, PORT_S))
-        s.sendall(secret.encode())
+        
+        s.sendall(secret.encode()) # send secret to server
+
+        # just observing the rest of the game
         while True:
             feedback = s.recv(1024).decode() # checking in on status of game
             print(feedback)
-            if '!' in feedback or feedback == '': # player either won or lost
+            if '!' in feedback or feedback == '': # game has ended
                 break
 
 if __name__ == '__main__':
