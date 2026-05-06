@@ -11,3 +11,5 @@ The dumb client can also ask for a hint by inputting "hint please" which will no
 
 **Citations:**
 I referenced Generative AI (Claude) to learn how to connect 2 clients to a server using the socket library.
+
+https://youtu.be/kjqNK3GbGEU
